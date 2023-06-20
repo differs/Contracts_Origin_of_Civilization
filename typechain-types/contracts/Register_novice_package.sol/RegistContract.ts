@@ -24,20 +24,29 @@ import type {
 
 export interface RegistContractInterface extends utils.Interface {
   functions: {
+    "getTotalRegist()": FunctionFragment;
     "isRegisted(address)": FunctionFragment;
     "regist()": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "isRegisted" | "regist"
+    nameOrSignatureOrTopic: "getTotalRegist" | "isRegisted" | "regist"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "getTotalRegist",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "isRegisted",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "regist", values?: undefined): string;
 
+  decodeFunctionResult(
+    functionFragment: "getTotalRegist",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "isRegisted", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "regist", data: BytesLike): Result;
 
@@ -71,6 +80,8 @@ export interface RegistContract extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    getTotalRegist(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     isRegisted(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -80,6 +91,8 @@ export interface RegistContract extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
+
+  getTotalRegist(overrides?: CallOverrides): Promise<BigNumber>;
 
   isRegisted(
     _address: PromiseOrValue<string>,
@@ -91,6 +104,8 @@ export interface RegistContract extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    getTotalRegist(overrides?: CallOverrides): Promise<BigNumber>;
+
     isRegisted(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -102,6 +117,8 @@ export interface RegistContract extends BaseContract {
   filters: {};
 
   estimateGas: {
+    getTotalRegist(overrides?: CallOverrides): Promise<BigNumber>;
+
     isRegisted(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides
@@ -113,6 +130,8 @@ export interface RegistContract extends BaseContract {
   };
 
   populateTransaction: {
+    getTotalRegist(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     isRegisted(
       _address: PromiseOrValue<string>,
       overrides?: CallOverrides

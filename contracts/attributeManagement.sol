@@ -19,7 +19,7 @@ contract Management {
 
     mapping(address => Attribute) public Attributelist;
 
-    PlayerContract player = PlayerContract(0xa6f79B60359f141df90A0C745125B131cAAfFD12);
+    PlayerContract player = PlayerContract(0x13DbB38705D4384e0a76Bc33bb44E709b4122Adf);
 
 
     function addAttribute(address Nftcontract, uint256 Stamina,uint256 Life,uint256 Strength,uint256 Intelligence,uint256 Attack,uint256 Defense,uint256 Level) public {

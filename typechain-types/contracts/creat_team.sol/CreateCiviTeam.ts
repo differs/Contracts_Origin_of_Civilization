@@ -22,15 +22,16 @@ import type {
   PromiseOrValue,
 } from "../../common";
 
-export interface CreateCivilizationInterface extends utils.Interface {
+export interface CreateCiviTeamInterface extends utils.Interface {
   functions: {
-    "CiviMembers(address)": FunctionFragment;
+    "CiviTeams(address)": FunctionFragment;
     "createGroup(string,string,address[])": FunctionFragment;
     "creator()": FunctionFragment;
     "joinGroup(address)": FunctionFragment;
     "joinedGroup(address)": FunctionFragment;
     "kickMember(address,address)": FunctionFragment;
     "leaveGroup(address)": FunctionFragment;
+    "returnTotalCiviGroups()": FunctionFragment;
     "returnTotalMembers(address)": FunctionFragment;
     "returnWitchGroupIn(address)": FunctionFragment;
     "setGroupInfo(address,string,string)": FunctionFragment;
@@ -39,13 +40,14 @@ export interface CreateCivilizationInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "CiviMembers"
+      | "CiviTeams"
       | "createGroup"
       | "creator"
       | "joinGroup"
       | "joinedGroup"
       | "kickMember"
       | "leaveGroup"
+      | "returnTotalCiviGroups"
       | "returnTotalMembers"
       | "returnWitchGroupIn"
       | "setGroupInfo"
@@ -53,7 +55,7 @@ export interface CreateCivilizationInterface extends utils.Interface {
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "CiviMembers",
+    functionFragment: "CiviTeams",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -82,6 +84,10 @@ export interface CreateCivilizationInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "returnTotalCiviGroups",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "returnTotalMembers",
     values: [PromiseOrValue<string>]
   ): string;
@@ -102,10 +108,7 @@ export interface CreateCivilizationInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "CiviMembers",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "CiviTeams", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "createGroup",
     data: BytesLike
@@ -118,6 +121,10 @@ export interface CreateCivilizationInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "kickMember", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "leaveGroup", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "returnTotalCiviGroups",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "returnTotalMembers",
     data: BytesLike
@@ -135,12 +142,12 @@ export interface CreateCivilizationInterface extends utils.Interface {
   events: {};
 }
 
-export interface CreateCivilization extends BaseContract {
+export interface CreateCiviTeam extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: CreateCivilizationInterface;
+  interface: CreateCiviTeamInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -162,7 +169,7 @@ export interface CreateCivilization extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    CiviMembers(
+    CiviTeams(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
@@ -199,9 +206,11 @@ export interface CreateCivilization extends BaseContract {
     ): Promise<ContractTransaction>;
 
     leaveGroup(
-      _groupOwner: PromiseOrValue<string>,
+      _teamOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    returnTotalCiviGroups(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     returnTotalMembers(
       _groupOwner: PromiseOrValue<string>,
@@ -226,7 +235,7 @@ export interface CreateCivilization extends BaseContract {
     ): Promise<[string]>;
   };
 
-  CiviMembers(
+  CiviTeams(
     arg0: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<
@@ -263,9 +272,11 @@ export interface CreateCivilization extends BaseContract {
   ): Promise<ContractTransaction>;
 
   leaveGroup(
-    _groupOwner: PromiseOrValue<string>,
+    _teamOwner: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  returnTotalCiviGroups(overrides?: CallOverrides): Promise<BigNumber>;
 
   returnTotalMembers(
     _groupOwner: PromiseOrValue<string>,
@@ -290,7 +301,7 @@ export interface CreateCivilization extends BaseContract {
   ): Promise<string>;
 
   callStatic: {
-    CiviMembers(
+    CiviTeams(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
@@ -327,9 +338,11 @@ export interface CreateCivilization extends BaseContract {
     ): Promise<void>;
 
     leaveGroup(
-      _groupOwner: PromiseOrValue<string>,
+      _teamOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    returnTotalCiviGroups(overrides?: CallOverrides): Promise<BigNumber>;
 
     returnTotalMembers(
       _groupOwner: PromiseOrValue<string>,
@@ -357,7 +370,7 @@ export interface CreateCivilization extends BaseContract {
   filters: {};
 
   estimateGas: {
-    CiviMembers(
+    CiviTeams(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -388,9 +401,11 @@ export interface CreateCivilization extends BaseContract {
     ): Promise<BigNumber>;
 
     leaveGroup(
-      _groupOwner: PromiseOrValue<string>,
+      _teamOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    returnTotalCiviGroups(overrides?: CallOverrides): Promise<BigNumber>;
 
     returnTotalMembers(
       _groupOwner: PromiseOrValue<string>,
@@ -416,7 +431,7 @@ export interface CreateCivilization extends BaseContract {
   };
 
   populateTransaction: {
-    CiviMembers(
+    CiviTeams(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -447,8 +462,12 @@ export interface CreateCivilization extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     leaveGroup(
-      _groupOwner: PromiseOrValue<string>,
+      _teamOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    returnTotalCiviGroups(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     returnTotalMembers(
