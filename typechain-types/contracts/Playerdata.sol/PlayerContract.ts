@@ -27,15 +27,48 @@ import type {
   PromiseOrValue,
 } from "../../common";
 
+export declare namespace PlayerContract {
+  export type PlayerDataStruct = {
+    name: PromiseOrValue<string>;
+    Stamina: PromiseOrValue<BigNumberish>;
+    Life: PromiseOrValue<BigNumberish>;
+    Strength: PromiseOrValue<BigNumberish>;
+    Intelligence: PromiseOrValue<BigNumberish>;
+    Attack: PromiseOrValue<BigNumberish>;
+    Defense: PromiseOrValue<BigNumberish>;
+    Level: PromiseOrValue<BigNumberish>;
+  };
+
+  export type PlayerDataStructOutput = [
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber
+  ] & {
+    name: string;
+    Stamina: BigNumber;
+    Life: BigNumber;
+    Strength: BigNumber;
+    Intelligence: BigNumber;
+    Attack: BigNumber;
+    Defense: BigNumber;
+    Level: BigNumber;
+  };
+}
+
 export interface PlayerContractInterface extends utils.Interface {
   functions: {
-    "Playerlist(address)": FunctionFragment;
+    "Player(address)": FunctionFragment;
     "allowedContract()": FunctionFragment;
     "createPlayer(string)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "returnPlayerProperties(address)": FunctionFragment;
     "setAllowedContract(address)": FunctionFragment;
-    "setNewMananger(address)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "updatePlayerName(address,string)": FunctionFragment;
     "updatePlayerProperties(address,uint256,uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
@@ -43,20 +76,20 @@ export interface PlayerContractInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "Playerlist"
+      | "Player"
       | "allowedContract"
       | "createPlayer"
       | "owner"
       | "renounceOwnership"
+      | "returnPlayerProperties"
       | "setAllowedContract"
-      | "setNewMananger"
       | "transferOwnership"
       | "updatePlayerName"
       | "updatePlayerProperties"
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "Playerlist",
+    functionFragment: "Player",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -73,11 +106,11 @@ export interface PlayerContractInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "setAllowedContract",
+    functionFragment: "returnPlayerProperties",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "setNewMananger",
+    functionFragment: "setAllowedContract",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -102,7 +135,7 @@ export interface PlayerContractInterface extends utils.Interface {
     ]
   ): string;
 
-  decodeFunctionResult(functionFragment: "Playerlist", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "Player", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "allowedContract",
     data: BytesLike
@@ -117,11 +150,11 @@ export interface PlayerContractInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setAllowedContract",
+    functionFragment: "returnPlayerProperties",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setNewMananger",
+    functionFragment: "setAllowedContract",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -183,7 +216,7 @@ export interface PlayerContract extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    Playerlist(
+    Player(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
@@ -221,13 +254,13 @@ export interface PlayerContract extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    returnPlayerProperties(
+      _playerAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[PlayerContract.PlayerDataStructOutput]>;
+
     setAllowedContract(
       _allowedContract: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    setNewMananger(
-      _newAddress: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -255,7 +288,7 @@ export interface PlayerContract extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
-  Playerlist(
+  Player(
     arg0: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<
@@ -293,13 +326,13 @@ export interface PlayerContract extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  returnPlayerProperties(
+    _playerAddress: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<PlayerContract.PlayerDataStructOutput>;
+
   setAllowedContract(
     _allowedContract: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  setNewMananger(
-    _newAddress: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -327,7 +360,7 @@ export interface PlayerContract extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    Playerlist(
+    Player(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<
@@ -363,13 +396,13 @@ export interface PlayerContract extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
+    returnPlayerProperties(
+      _playerAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PlayerContract.PlayerDataStructOutput>;
+
     setAllowedContract(
       _allowedContract: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setNewMananger(
-      _newAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -409,7 +442,7 @@ export interface PlayerContract extends BaseContract {
   };
 
   estimateGas: {
-    Playerlist(
+    Player(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
@@ -427,13 +460,13 @@ export interface PlayerContract extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    setAllowedContract(
-      _allowedContract: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    returnPlayerProperties(
+      _playerAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    setNewMananger(
-      _newAddress: PromiseOrValue<string>,
+    setAllowedContract(
+      _allowedContract: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -462,7 +495,7 @@ export interface PlayerContract extends BaseContract {
   };
 
   populateTransaction: {
-    Playerlist(
+    Player(
       arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -480,13 +513,13 @@ export interface PlayerContract extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    setAllowedContract(
-      _allowedContract: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    returnPlayerProperties(
+      _playerAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    setNewMananger(
-      _newAddress: PromiseOrValue<string>,
+    setAllowedContract(
+      _allowedContract: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

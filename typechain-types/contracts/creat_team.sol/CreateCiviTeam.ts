@@ -25,7 +25,7 @@ import type {
 export interface CreateCiviTeamInterface extends utils.Interface {
   functions: {
     "CiviTeams(address)": FunctionFragment;
-    "createGroup(string,string,address[])": FunctionFragment;
+    "createGroup(string,string)": FunctionFragment;
     "creator()": FunctionFragment;
     "joinGroup(address)": FunctionFragment;
     "joinedGroup(address)": FunctionFragment;
@@ -60,11 +60,7 @@ export interface CreateCiviTeamInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "createGroup",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>[]
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "creator", values?: undefined): string;
   encodeFunctionData(
@@ -183,7 +179,6 @@ export interface CreateCiviTeam extends BaseContract {
     createGroup(
       _name: PromiseOrValue<string>,
       _description: PromiseOrValue<string>,
-      _members: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -249,7 +244,6 @@ export interface CreateCiviTeam extends BaseContract {
   createGroup(
     _name: PromiseOrValue<string>,
     _description: PromiseOrValue<string>,
-    _members: PromiseOrValue<string>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -315,7 +309,6 @@ export interface CreateCiviTeam extends BaseContract {
     createGroup(
       _name: PromiseOrValue<string>,
       _description: PromiseOrValue<string>,
-      _members: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -378,7 +371,6 @@ export interface CreateCiviTeam extends BaseContract {
     createGroup(
       _name: PromiseOrValue<string>,
       _description: PromiseOrValue<string>,
-      _members: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -439,7 +431,6 @@ export interface CreateCiviTeam extends BaseContract {
     createGroup(
       _name: PromiseOrValue<string>,
       _description: PromiseOrValue<string>,
-      _members: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
