@@ -7,6 +7,7 @@ import "./Playerdata.sol";
 
 
 contract Management {
+    // 存储一个道具的属性,用于销毁道具增加人物属性.
     struct Attribute{
         uint256 Stamina;
         uint256 Life;
@@ -43,7 +44,7 @@ contract Management {
         erc1155.safeTransferFrom(msg.sender, address(0xdead), tokenId, 1, '0x');
 
         // 换取属性的提升.
-        Attribute memory attribute = Attributelist[address(0x123)];
+        Attribute memory attribute = Attributelist[address(NftContract)];
         player.updatePlayerProperties(msg.sender, attribute.Stamina, attribute.Life, attribute.Strength, attribute.Intelligence, attribute.Attack, attribute.Defense, attribute.Level);
         
     }

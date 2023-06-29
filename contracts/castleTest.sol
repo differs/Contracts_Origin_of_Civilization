@@ -13,10 +13,10 @@ contract NFTTest is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
     Counters.Counter private _tokenIdCounter;
 
     constructor() ERC721("NFT-Test", "NFT-TEST") {}
-    string uri = "ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/8023";
+    string uri = "https://api.otherside.xyz/lands/69033";
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq";
+        return "https://api.otherside.xyz/lands";
     }
 
     function safeMint(address to) public onlyOwner {
